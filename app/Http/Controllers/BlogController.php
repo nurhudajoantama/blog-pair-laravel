@@ -36,4 +36,9 @@ class BlogController extends Controller
         Blog::create($request->all());
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully');
     }
+
+    public function edit(Blog $blog)
+    {
+        return view('blogs.edit', compact('blog'));
+    }
 }
