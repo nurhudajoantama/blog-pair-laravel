@@ -4,8 +4,9 @@
 
 <h1>Create Blog</h1>
 
-<form action="{{route('blogs.store')}}" method="POST">
+<form action="{{route('blogs.update', compact('blog'))}}" method="POST">
     @csrf
+    @method('PUT')
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" name="title" placeholder="Title" value='{{ $blog->title }}'>

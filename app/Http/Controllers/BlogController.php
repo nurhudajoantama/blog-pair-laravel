@@ -41,4 +41,17 @@ class BlogController extends Controller
     {
         return view('blogs.edit', compact('blog'));
     }
+
+    public function update(Request $request, Blog $blog)
+    {
+        $request->merge(['slug' => Str::slug($request->title)]);
+        $request->validate([
+            'title' => 'required|min:3',
+            'slug' => 'required|min:3|unique:blogs,slug,' . $blog->id,
+            'body' => 'required|min:3',
+        ]);
+        $request->merge(['excerpt' => Str::limit(strip_tags($request->body, 35))]);
+        $blog->update($request->all());
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
+    }
 }
