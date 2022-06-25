@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', [BlogController::class, 'index']);
+Route::prefix('/blog')->group(function () {
+    Route::get('/', [BlogController::class, 'index']);
+    Route::get('/create', [BlogController::class, 'create']);
+});

@@ -12,4 +12,9 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return view('blogs.index', compact('blogs'));
     }
+
+    public function create()
+    {
+        return view('blogs.create');
+    }
 }
