@@ -5,7 +5,6 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
             <th>Title</th>
             <th>Body</th>
             <th>Created At</th>
@@ -16,7 +15,6 @@
     <tbody>
         @foreach ($blogs as $blog)
         <tr>
-            <td>{{ $blog->id }}</td>
             <td>
                 {{-- <a href="{{route('blogs.show')}}"> --}}
                     {{ $blog->title }}
@@ -27,6 +25,11 @@
             <td>{{ $blog->updated_at }}</td>
             <td>
                 <a href="{{route('blogs.edit', compact('blog'))}}" class="btn btn-primary">Edit</a>
+                <form action="{{route('blogs.delete', compact('blog'))}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </td>
         </tr>
         @endforeach

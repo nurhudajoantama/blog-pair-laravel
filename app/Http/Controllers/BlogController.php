@@ -54,4 +54,10 @@ class BlogController extends Controller
         $blog->update($request->all());
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
     }
+
+    public function delete(Blog $blog)
+    {
+        $blog->delete();
+        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully');
+    }
 }
