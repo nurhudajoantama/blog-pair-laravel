@@ -19,6 +19,11 @@ class BlogController extends Controller
         return view('blogs.create');
     }
 
+    public function show(Blog $blog)
+    {
+        return view('blogs.show', compact('blog'));
+    }
+
     public function store(Request $request)
     {
         $request->merge(['slug' => Str::slug($request->title)]);
