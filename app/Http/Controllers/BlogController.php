@@ -12,7 +12,7 @@ class BlogController extends Controller
     {
         $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
             ->latest()
-            ->paginate(10)
+            ->paginate(9)
             ->withQueryString();
         return view('blogs.index', compact('blogs'));
     }

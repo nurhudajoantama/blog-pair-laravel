@@ -29,7 +29,7 @@
 
 <div class="container">
     <div class="row mt-4">
-        @foreach ($blogs->skip(1) as $blog)
+        @foreach ($blogs as $blog)
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
