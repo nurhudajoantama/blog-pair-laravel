@@ -14,6 +14,7 @@ class IndexController extends Controller
         // }
 
         $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
+            ->latest()
             ->paginate(8)
             ->withQueryString();
         return view('index', compact('blogs'));

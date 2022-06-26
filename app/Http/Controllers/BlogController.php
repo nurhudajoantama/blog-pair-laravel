@@ -11,6 +11,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
+            ->latest()
             ->paginate(8)
             ->withQueryString();
         return view('blogs.index', compact('blogs'));
