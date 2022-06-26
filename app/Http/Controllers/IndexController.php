@@ -9,7 +9,13 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::paginate(8)->withQueryString();
+        // if(request('search')) {
+        //     $posts->where('title', 'like', '%'. request('search'). '%');
+        // }
+
+        $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
+            ->paginate(8)
+            ->withQueryString();
         return view('index', compact('blogs'));
     }
 }

@@ -7,7 +7,12 @@
 <div class="d-flex justify-content-end mb-3">
     <a href="{{route('blogs.create')}}" class="btn btn-success">Create</a>
 </div>
-
+<form action="" method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
 <table class="table table-bordered">
     <thead>
         <tr>

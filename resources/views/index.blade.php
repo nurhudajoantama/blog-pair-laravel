@@ -4,7 +4,14 @@
 
 <h1 class="mb-5 mt-3">Blog Post</h1>
 
-<div class="row">
+<form action="" method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<div class="row mt-4">
     @foreach ($blogs as $blog)
     <div class="col-4 mb-3">
         <div class="card" style="width: 18rem;">
