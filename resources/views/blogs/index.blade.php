@@ -65,6 +65,10 @@
         @endforeach
     </tbody>
 </table>
+
+<div class="mt-3">
+    {{ $blogs->links() }}
+</div>
 </body>
 
 @endsection
