@@ -4,6 +4,10 @@
 
 <h1 class="mb-5 mt-3">Blog Post</h1>
 
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{route('blogs.create')}}" class="btn btn-success">Create</a>
+</div>
+
 <table class="table table-bordered">
     <thead>
         <tr>
