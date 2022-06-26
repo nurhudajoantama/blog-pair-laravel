@@ -2,34 +2,32 @@
 
 @section('content')
 
-<table>
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Action</th>
+            <th class="col-6">Title</th>
+            <th class="col-3">Updated At</th>
+            <th class="col-3">Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($blogs as $blog)
         <tr>
             <td>
-                {{-- <a href="{{route('blogs.show')}}"> --}}
+                <a href="{{ route('blogs.show', $blog) }}">
                     {{ $blog->title }}
-                    {{-- </a> --}}
+                </a>
             </td>
-            <td>{{ $blog->body }}</td>
-            <td>{{ $blog->created_at }}</td>
-            <td>{{ $blog->updated_at }}</td>
+            <td>{{ $blog->updated_at->format('D M Y') }}</td>
             <td>
-                <a href="{{route('blogs.edit', compact('blog'))}}" class="btn btn-primary">Edit</a>
-                <form action="{{route('blogs.delete', compact('blog'))}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{route('blogs.edit', compact('blog'))}}" class="btn btn-primary btn-sm mr-2">Edit</a>
+                    <form action="{{route('blogs.delete', compact('blog'))}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach
