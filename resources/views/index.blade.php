@@ -21,7 +21,7 @@
         <p class="card-text">{{ $latestBlog->excerpt }}</p>
         <p class="card-text"><small class="text-muted">{{ $latestBlog->created_at->diffForHumans() }}</small></p>
 
-        <a href="/blogs/ {{ $latestBlog->slug }}" class="text-decoration-none">Read more</a>
+        <a href="{{route('blogs.show', $latestBlog)}}" class="text-decoration-none">Read more</a>
 
     </div>
 </div>
