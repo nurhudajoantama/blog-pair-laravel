@@ -4,6 +4,12 @@
 
 <h1 class="mb-5 mt-3">Blog Post</h1>
 
+@if(session()->has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+</div>
+@endif
+
 <div class="d-flex justify-content-end mb-3">
     <a href="{{route('blogs.create')}}" class="btn btn-success">Create</a>
 </div>
