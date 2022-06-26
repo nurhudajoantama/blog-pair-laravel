@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(8)->withQueryString();
         return view('index', compact('blogs'));
     }
 }

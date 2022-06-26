@@ -6,7 +6,7 @@
 
 <div class="row">
     @foreach ($blogs as $blog)
-    <div class="col-4 ">
+    <div class="col-4 mb-3">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title pb-2">{{$blog->title}}</h5>
@@ -17,6 +17,10 @@
         </div>
     </div>
     @endforeach
+</div>
+
+<div class="mt-3">
+    {{ $blogs->links() }}
 </div>
 
 @endsection
