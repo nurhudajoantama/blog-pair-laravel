@@ -21,7 +21,7 @@ use App\Http\Controllers\IndexController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::prefix('/blog')->group(function () {
+Route::prefix('/blogs')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blogs.index');
 
     Route::get('/create', [BlogController::class, 'create'])->name('blogs.create');

@@ -26,10 +26,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{route('index')}}">Home</a>
+                        <a class="nav-link {{(request()->is('/')) ? 'active' : ''}}" aria-current="page"
+                            href="{{route('index')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('blogs.index')}}">Blogs</a>
+                        <a class="nav-link {{(request()->segment(1) == 'blogs') ? 'active' : ''}}"
+                            href="{{route('blogs.index')}}">Blogs</a>
                     </li>
                 </ul>
                 {{-- <form class="d-flex" role="search">
