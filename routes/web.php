@@ -16,7 +16,7 @@ use App\Http\Controllers\BlogController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blogs.index');
