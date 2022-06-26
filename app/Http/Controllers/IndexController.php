@@ -12,11 +12,11 @@ class IndexController extends Controller
         // if(request('search')) {
         //     $posts->where('title', 'like', '%'. request('search'). '%');
         // }
-
+        $latestBlog = Blog::latest()->first();
         $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
             ->latest()
             ->paginate(8)
             ->withQueryString();
-        return view('index', compact('blogs'));
+        return view('index', compact('blogs', 'latestBlog'));
     }
 }
