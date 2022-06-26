@@ -2,6 +2,8 @@
 
 @section('content')
 
+<h1 class="mb-5 mt-3">Blog Post</h1>
+
 <table class="table table-bordered">
     <thead>
         <tr>
