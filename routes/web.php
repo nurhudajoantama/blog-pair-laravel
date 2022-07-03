@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\IndexController;
@@ -20,6 +21,12 @@ use App\Http\Controllers\IndexController;
 // })->name('index');
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'postLogin'])->name('auth.postLogin');
+
+Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/register', [AuthController::class, 'postRegister'])->name('auth.postRegister');
 
 Route::prefix('/blogs')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blogs.index');
