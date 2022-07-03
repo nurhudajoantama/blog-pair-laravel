@@ -4,14 +4,6 @@
 
 <h1 class="mb-5 mt-3">Blog Post</h1>
 
-
-<form action="" method="get">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
-        <button class="btn btn-primary" type="submit">Search</button>
-    </div>
-</form>
-
 @if ($blogs->count())
 <div class="card mb-3">
     <img src="https://source.unsplash.com/1200x400/?nature,water" class="card-img-top" alt="...">
@@ -46,9 +38,5 @@
 @else
 <p class="text-center fs-4">No post found.</p>
 @endif
-
-<div class="mt-3">
-    {{ $blogs->links() }}
-</div>
 
 @endsection

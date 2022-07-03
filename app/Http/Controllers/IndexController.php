@@ -9,14 +9,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-        // if(request('search')) {
-        //     $posts->where('title', 'like', '%'. request('search'). '%');
-        // }
         $latestBlog = Blog::latest()->first();
-        $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
+        $blogs = Blog::latest()->skip(1)->take(3)->get();
         return view('index', compact('blogs', 'latestBlog'));
     }
 }

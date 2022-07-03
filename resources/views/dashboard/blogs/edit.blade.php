@@ -4,7 +4,7 @@
 
 <h1>Create Blog</h1>
 
-<form action="{{route('dashboard.blogs.update', 'blog')}}" method="POST">
+<form action="{{route('dashboard.blogs.update', $blog)}}" method="POST">
     @csrf
     @method('PUT')
     <div class="form-group">
