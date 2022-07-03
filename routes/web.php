@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Dashboard\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,8 @@ Route::prefix('/blogs')->group(function () {
     Route::delete('/{blog:slug}', [BlogController::class, 'delete'])->name('blogs.delete');
 
     Route::get('/{blog:slug}', [BlogController::class, 'show'])->name('blogs.show');
+});
+
+Route::prefix('/dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 });
