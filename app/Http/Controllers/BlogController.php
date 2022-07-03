@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
+        $blogs = Blog::with(['user'])
+            ->where('title', 'like', '%' . request('search') . '%')
             ->latest()
             ->paginate(9)
-            ->withQueryString();
+            // ->withQueryString();
+            ->appends($request->query());
         return view('blogs.index', compact('blogs'));
     }
 

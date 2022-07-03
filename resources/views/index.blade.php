@@ -10,9 +10,9 @@
     <div class="card-body text-center">
         <h3 class="card-title"><a href="{{route('blogs.show', $latestBlog)}}" class="text-decoration-none text-dark">{{
                 $latestBlog->title }}</a></h3>
+        <p class="card-text">Dibuat oleh <strong>{{$latestBlog->user->name}}</strong></p>
         <p class="card-text">{{ $latestBlog->excerpt }}</p>
         <p class="card-text"><small class="text-muted">{{ $latestBlog->created_at->diffForHumans() }}</small></p>
-
         <a href="{{route('blogs.show', $latestBlog)}}" class="text-decoration-none">Read more</a>
 
     </div>
@@ -25,7 +25,8 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title pb-2">{{$blog->title}}</h5>
+                    <h5 class="card-title">{{$blog->title}}</h5>
+                    <p class="card-text pb-2">Dibuat oleh <strong>{{$blog->user->name}}</strong></p>
                     <small class="card-subtitle mb-2 text-muted">{{$blog->created_at->diffForHumans() }}</small>
                     <p class="card-text">{{$blog->excerpt}}</p>
                     <a href="{{route('blogs.show', $blog)}}" class="card-link">Read More.</a>

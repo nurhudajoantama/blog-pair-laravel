@@ -6,12 +6,14 @@ use App\Models\Blog;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardBlogController extends Controller
 {
     public function index()
     {
         $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
+            ->where('user_id', auth()->id())
             ->latest()
             ->paginate(10)
             ->withQueryString();
@@ -31,13 +33,19 @@ class DashboardBlogController extends Controller
             'slug' => 'required|min:3|unique:blogs',
             'body' => 'required|min:3',
         ]);
-        $request->merge(['excerpt' => Str::limit(strip_tags($request->body, 35))]);
+        $request->merge([
+            'excerpt' => Str::limit(strip_tags($request->body, 35)),
+            'user_id' => auth()->id()
+        ]);
         Blog::create($request->all());
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog created successfully');
     }
 
     public function edit(Blog $blog)
     {
+        if (!Gate::allows('update-blog', $blog)) {
+            abort(403);
+        }
         return view('dashboard.blogs.edit', compact('blog'));
     }
 

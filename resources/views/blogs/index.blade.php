@@ -18,7 +18,8 @@
     <div class="col-md-4 mb-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title pb-2">{{$blog->title}}</h5>
+                <h5 class="card-title">{{$blog->title}}</h5>
+                <p class="card-text pb-2">Dibuat oleh <strong>{{$blog->user->name}}</strong></p>
                 <small class="card-subtitle mb-2 text-muted">{{$blog->created_at->diffForHumans() }}</small>
                 <p class="card-text">{{$blog->excerpt}}</p>
                 <a href="{{route('blogs.show', $blog)}}" class="card-link">Read More.</a>
