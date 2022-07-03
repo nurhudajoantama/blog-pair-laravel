@@ -40,8 +40,8 @@ Route::prefix('/blogs')->name('blogs.')->group(function () {
 
 Route::prefix('/dashboard')->name('dashboard.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::resource('/blogs', DashboardBlogController::class)->except(['show'])
-        ->parameters([
-            'blogs' => 'blog:slug',
-        ]);
+    Route::resource('/blogs', DashboardBlogController::class)->except(['show']);
+    // ->parameters([
+    //     'blogs' => 'blog:slug',
+    // ]);
 });

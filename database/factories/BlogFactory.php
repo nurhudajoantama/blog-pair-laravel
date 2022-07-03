@@ -21,6 +21,7 @@ class BlogFactory extends Factory
         $slug = Str::slug($title);
         $body = $this->faker->paragraph;
         $excerpt = Str::limit(strip_tags($body, 35));
-        return compact('title', 'slug', 'excerpt', 'body');
+        $user_id = 1;
+        return compact('title', 'slug', 'excerpt', 'body', 'user_id');
     }
 }
