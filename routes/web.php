@@ -25,7 +25,7 @@ use App\Http\Controllers\Dashboard\DashboardBlogController;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::name('auth.')->group(function () {
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
     Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'postRegister'])->name('postRegister');
@@ -38,10 +38,10 @@ Route::prefix('/blogs')->name('blogs.')->group(function () {
     Route::get('/{blog:slug}', [BlogController::class, 'show'])->name('show');
 });
 
-Route::prefix('/dashboard')->name('dashboard.')->group(function () {
+Route::prefix('/dashboard')->name('dashboard.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::resource('/blogs', DashboardBlogController::class)->except(['show'])
         ->parameters([
             'blogs' => 'blog:slug',
-        ]);;
+        ]);
 });

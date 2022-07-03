@@ -4,7 +4,7 @@
 
 <h1 class="mt-3 mb-5">Create Blog</h1>
 
-<form action="{{route('blogs.store')}}" method="POST">
+<form action="{{route('dashboard.blogs.store')}}" method="POST">
     @csrf
     <div class="form-group">
         @error('slug')
