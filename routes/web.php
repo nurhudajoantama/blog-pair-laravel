@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardBlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,26 +24,24 @@ use App\Http\Controllers\Dashboard\DashboardController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('/login', [AuthController::class, 'postLogin'])->name('auth.postLogin');
-
-Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
-Route::post('/register', [AuthController::class, 'postRegister'])->name('auth.postRegister');
-
-Route::prefix('/blogs')->group(function () {
-    Route::get('/', [BlogController::class, 'index'])->name('blogs.index');
-
-    Route::get('/create', [BlogController::class, 'create'])->name('blogs.create');
-    Route::post('/', [BlogController::class, 'store'])->name('blogs.store');
-
-    Route::get('/edit/{blog:slug}', [BlogController::class, 'edit'])->name('blogs.edit');
-    Route::put('/{blog:slug}', [BlogController::class, 'update'])->name('blogs.update');
-
-    Route::delete('/{blog:slug}', [BlogController::class, 'delete'])->name('blogs.delete');
-
-    Route::get('/{blog:slug}', [BlogController::class, 'show'])->name('blogs.show');
+Route::name('auth.')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/register', [AuthController::class, 'postRegister'])->name('postRegister');
+    route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::prefix('/dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+
+Route::prefix('/blogs')->name('blogs.')->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('index');
+    Route::get('/{blog:slug}', [BlogController::class, 'show'])->name('show');
+});
+
+Route::prefix('/dashboard')->name('dashboard.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::resource('/blogs', DashboardBlogController::class)->except(['show'])
+        ->parameters([
+            'blogs' => 'blog:slug',
+        ]);;
 });
