@@ -27,6 +27,11 @@ class Blog extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
 
 // protected $fillable = ['title', 'excerpt', 'body', 'user_id'];
