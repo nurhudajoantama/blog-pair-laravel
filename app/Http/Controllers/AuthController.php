@@ -9,6 +9,14 @@ class AuthController extends Controller
 {
     public function login()
     {
+        // if(session()->has('link')){
+        // }else{
+        //  session(['link' => url()->previous()]);
+        // }
+        session()->flash(
+            'link',
+            session()->has('link') ? session('link') : url()->previous()
+        );
         return view('auth.login');
     }
 
@@ -20,9 +28,10 @@ class AuthController extends Controller
         ]);
 
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('dashboard.index');
+            // return redirect()->route('dashboard.index');
+            return redirect(session('link'));
         }
-
+        session()->flash('link', session('link'));
         return redirect()->back()->with('error', 'Email or password is incorrect');
     }
 

@@ -21,6 +21,22 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
+        $blog->load(['user', 'comments.user']);
         return view('blogs.show', compact('blog'));
+    }
+
+    public function storeComment(Blog $blog, Request $request)
+    {
+        $request->validate([
+            'comment' => 'required'
+        ]);
+
+        $request->merge([
+            'user_id' => auth()->id()
+        ]);
+
+        $blog->comments()->create($request->all());
+
+        return redirect()->back();
     }
 }

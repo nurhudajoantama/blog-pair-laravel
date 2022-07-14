@@ -36,6 +36,10 @@ Route::name('auth.')->group(function () {
 Route::prefix('/blogs')->name('blogs.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/{blog:slug}', [BlogController::class, 'show'])->name('show');
+
+    Route::prefix('/{blog:slug}')->group(function () {
+        Route::post('/comments', [BlogController::class, 'storeComment'])->name('storeComment');
+    });
 });
 
 Route::prefix('/dashboard')->name('dashboard.')->middleware('auth')->group(function () {
