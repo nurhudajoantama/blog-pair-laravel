@@ -11,7 +11,7 @@
         <h3 class="card-title"><a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none text-dark">{{
                 $blogs[0]->title }}</a></h3>
         <p class="card-text">Dibuat oleh <strong>{{$blogs[0]->user->name}}</strong></p>
-        <p class="card-text">{{ $blogs[0]->excerpt }}</p>
+        <p class="card-text">{!! $blogs[0]->excerpt !!}</p>
         <p class="card-text"><small class="text-muted">{{ $blogs[0]->created_at->diffForHumans() }}</small></p>
         <a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none">Read more</a>
 

@@ -23,7 +23,9 @@
     </div>
     <div class="form-group">
         <label for="body">Body</label>
-        <textarea class="form-control" id="body" name="body" rows="3">{{ old('body', $blog->body) }}</textarea>
+        <input type="hidden" class="form-control @error('title') is-invalid @enderror" id="body" name="body"
+            value="{{old('body', $blog->body)}}">
+        <trix-editor input="body"></trix-editor>
         @error('body')
         <div class="invalid-feedback">
             {{ $message }}

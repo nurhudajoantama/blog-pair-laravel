@@ -157,6 +157,16 @@
         }
     </style>
 
+    {{-- TRIX EDITOR --}}
+    <link rel="stylesheet" href="{{URL::asset('css/trix.css')}}">
+    <script src="{{URL::asset('js/trix.js')}}"></script>
+
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -191,6 +201,24 @@
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
     </script>
     <script src="dashboard.js"></script> --}}
+
+    {{-- REMOVE ATTACH FILE TRIX JS --}}
+    <script>
+        document.addEventListener('trix-file-accept', function(event) {
+            e.preventDefault();
+        });
+    
+        function previewImage(){
+            const image = document.querySelector('#image');
+            const preview = document.querySelector('.img-preview');
+            preview.style.display = 'block';
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+            oFReader.onload = function(oFREvent){
+                preview.src = oFREvent.target.result;
+            };
+        }
+    </script>
 </body>
 
 </html>
