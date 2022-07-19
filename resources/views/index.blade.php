@@ -8,12 +8,12 @@
 <div class="card mb-3">
     <img src="https://source.unsplash.com/1200x400/?nature,water" class="card-img-top" alt="...">
     <div class="card-body text-center">
-        <h3 class="card-title"><a href="{{route('blogs.show', $latestBlog)}}" class="text-decoration-none text-dark">{{
-                $latestBlog->title }}</a></h3>
-        <p class="card-text">Dibuat oleh <strong>{{$latestBlog->user->name}}</strong></p>
-        <p class="card-text">{{ $latestBlog->excerpt }}</p>
-        <p class="card-text"><small class="text-muted">{{ $latestBlog->created_at->diffForHumans() }}</small></p>
-        <a href="{{route('blogs.show', $latestBlog)}}" class="text-decoration-none">Read more</a>
+        <h3 class="card-title"><a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none text-dark">{{
+                $blogs[0]->title }}</a></h3>
+        <p class="card-text">Dibuat oleh <strong>{{$blogs[0]->user->name}}</strong></p>
+        <p class="card-text">{{ $blogs[0]->excerpt }}</p>
+        <p class="card-text"><small class="text-muted">{{ $blogs[0]->created_at->diffForHumans() }}</small></p>
+        <a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none">Read more</a>
 
     </div>
 </div>
@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="row mt-4">
-        @foreach ($blogs as $blog)
+        @foreach ($blogs->skip(1) as $blog)
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
