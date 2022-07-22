@@ -6,6 +6,7 @@ use App\Models\Blog;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 
 class DashboardBlogController extends Controller
@@ -22,7 +23,8 @@ class DashboardBlogController extends Controller
 
     public function create()
     {
-        return view('dashboard.blogs.create');
+        $categories = Category::all();
+        return view('dashboard.blogs.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -32,12 +34,14 @@ class DashboardBlogController extends Controller
             'title' => 'required|min:3',
             'slug' => 'required|min:3|unique:blogs',
             'body' => 'required|min:3',
+            'category_id' => 'exists:categories,id',
         ]);
         $request->merge([
             'excerpt' => Str::limit(strip_tags($request->body, 35)),
             'user_id' => auth()->id()
         ]);
-        Blog::create($request->all());
+        $blog = Blog::create($request->all());
+        $blog->categories()->attach($request->category_id);
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog created successfully');
     }
 
@@ -46,7 +50,9 @@ class DashboardBlogController extends Controller
         if (!Gate::allows('update-blog', $blog)) {
             abort(403);
         }
-        return view('dashboard.blogs.edit', compact('blog'));
+        $categories = Category::all();
+        $blog->load('categories');
+        return view('dashboard.blogs.edit', compact('blog', 'categories'));
     }
 
     public function update(Request $request, Blog $blog)
@@ -56,9 +62,11 @@ class DashboardBlogController extends Controller
             'title' => 'required|min:3',
             'slug' => 'required|min:3|unique:blogs,slug,' . $blog->id,
             'body' => 'required|min:3',
+            'category_id' => 'exists:categories,id',
         ]);
         $request->merge(['excerpt' => Str::limit(strip_tags($request->body, 35))]);
         $blog->update($request->all());
+        $blog->categories()->sync($request->category_id);
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog updated successfully');
     }
 

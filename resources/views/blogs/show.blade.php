@@ -9,6 +9,11 @@
 <div>
     Dibuat pada <strong>{{$blog->created_at->format('d M Y')}}</strong>
 </div>
+<div>
+    @foreach ($blog->categories as $category)
+    <span class="badge bg-secondary px-2 py-1 text-white">{{ $category->name }}</span>
+    @endforeach
+</div>
 <p class="mt-3">{!! $blog->body !!}</p>
 
 

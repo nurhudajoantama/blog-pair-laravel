@@ -15,7 +15,7 @@ class Blog extends Model
         'slug',
         'excerpt',
         'body',
-        'user_id'
+        'user_id',
     ];
 
     public function getRouteKeyName()
@@ -31,6 +31,11 @@ class Blog extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }
 

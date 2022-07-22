@@ -19,8 +19,13 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{$blog->title}}</h5>
-                <p class="card-text pb-2">Dibuat oleh <strong>{{$blog->user->name}}</strong></p>
-                <small class="card-subtitle mb-2 text-muted">{{$blog->created_at->diffForHumans() }}</small>
+                <small class="card-text fs-6">Dibuat oleh <strong>{{$blog->user->name}}</strong></small>
+                <div>
+                    @foreach ($blog->categories as $category)
+                    <span class="text-success "><b>{{ $category->name }}</b></span>
+                    @endforeach
+                </div>
+                <small class="card-text mt-3 text-muted">{{$blog->created_at->diffForHumans() }}</small>
                 <p class="card-text">{{$blog->excerpt}}</p>
                 <a href="{{route('blogs.show', $blog)}}" class="card-link">Read More.</a>
             </div>

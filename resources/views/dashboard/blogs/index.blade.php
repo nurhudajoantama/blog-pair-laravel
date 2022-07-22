@@ -22,7 +22,8 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th class="col-6">Title</th>
+            <th class="col-5">Title</th>
+            <th class="col-1">Categories</th>
             <th class="col-3">Updated At</th>
             <th class="col-3">Action</th>
         </tr>
@@ -34,6 +35,12 @@
                 <a href="{{ route('blogs.show', $blog) }}">
                     {{ $blog->title }}
                 </a>
+            </td>
+            <td>
+                @foreach ($blog->categories as $category)
+                {{--TODO: add link to category --}}
+                <span class="badge bg-secondary px-2 py-1 text-white">{{ $category->name }}</span>
+                @endforeach
             </td>
             <td>{{ $blog->updated_at->format('D M Y') }}</td>
             <td>

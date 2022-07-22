@@ -21,6 +21,15 @@
         @enderror
     </div>
     <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" class="form-control" name="category_id[]" multiple="multiple">
+            {{-- VALUE AS ID IN CATEGORY --}}
+            @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
         <label for="body">Body</label>
         <input type="hidden" class="form-control @error('title') is-invalid @enderror" id="body" name="body"
             value="{{old('body')}}">
@@ -34,4 +43,24 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#category').select2({
+            language: {
+            noResults: function (e) {
+                return ```
+                No Results Found 
+                <a href='#' class='btn btn-danger'>Use it anyway</a>
+                ```;
+            }
+        },
+        escapeMarkup: function (markup) {
+        return markup;
+        }
+        });
+    });
+</script>
 @endsection

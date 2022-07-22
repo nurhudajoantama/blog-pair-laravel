@@ -42,6 +42,10 @@ Route::prefix('/blogs')->name('blogs.')->group(function () {
     });
 });
 
+Route::prefix('/categories')->name('categories.')->group(function () {
+    Route::get('/{category:name}', [BlogController::class, 'index'])->name('show');
+});
+
 Route::prefix('/dashboard')->name('dashboard.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::resource('/blogs', DashboardBlogController::class)->except(['show']);
