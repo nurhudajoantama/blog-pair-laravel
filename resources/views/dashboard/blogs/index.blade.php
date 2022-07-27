@@ -39,7 +39,7 @@
             <td>
                 @foreach ($blog->categories as $category)
                 {{--TODO: add link to category --}}
-                <span class="badge bg-secondary px-2 py-1 text-white">{{ $category->name }}</span>
+                <span class="badge bg-dark rounded-pill px-2 py-1 text-white">{{ $category->name }}</span>
                 @endforeach
             </td>
             <td>{{ $blog->updated_at->format('D M Y') }}</td>

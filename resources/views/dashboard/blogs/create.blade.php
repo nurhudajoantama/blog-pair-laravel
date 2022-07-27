@@ -47,20 +47,8 @@
 
 @section('script')
 <script>
-    $(document).ready(function() {
-        $('#category').select2({
-            language: {
-            noResults: function (e) {
-                return ```
-                No Results Found 
-                <a href='#' class='btn btn-danger'>Use it anyway</a>
-                ```;
-            }
-        },
-        escapeMarkup: function (markup) {
-        return markup;
-        }
-        });
-    });
+    const csrf_token = "{{csrf_token()}}";
+    const categories_store_url = "{{route('dashboard.categories.store')}}";
 </script>
+<script src="{{URL::asset('/js/select2-conf.js')}}" defer></script>
 @endsection

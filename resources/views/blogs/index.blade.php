@@ -12,6 +12,18 @@
     </div>
 </form>
 
+@if(request('user'))
+<div>
+    <p>Username : <strong>{{request('user')}}</strong></p>
+</div>
+@endif
+
+@if(request('category'))
+<div>
+    <p>Category : <strong>{{request('category')}}</strong></p>
+</div>
+@endif
+
 @if ($blogs->count())
 <div class="row mt-4">
     @foreach ($blogs as $blog)
@@ -19,10 +31,17 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{$blog->title}}</h5>
-                <small class="card-text fs-6">Dibuat oleh <strong>{{$blog->user->name}}</strong></small>
+                <small class="card-text fs-6">Dibuat oleh <a
+                        href="{{route('blogs.index',['user'=>$blog->user->username])}}">
+                        <strong>{{$blog->user->name}}</strong></small>
+                </a>
                 <div>
                     @foreach ($blog->categories as $category)
-                    <span class="text-success "><b>{{ $category->name }}</b></span>
+                    <span class="text-success ">
+                        <a href="{{route('blogs.index',['category'=>$category->name])}}">
+                            <strong>{{ $category->name }}</strong>
+                        </a>
+                    </span>
                     @endforeach
                 </div>
                 <small class="card-text mt-3 text-muted">{{$blog->created_at->diffForHumans() }}</small>

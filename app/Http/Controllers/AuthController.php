@@ -51,6 +51,10 @@ class AuthController extends Controller
         ]);
         $request->merge(['password' => bcrypt($request->password)]);
         User::create($request->all());
+        session()->flash(
+            'link',
+            route('index')
+        );
         return redirect()->route('auth.login')->with('success', 'User created successfully');
     }
 

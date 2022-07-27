@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardBlogController;
@@ -42,14 +43,14 @@ Route::prefix('/blogs')->name('blogs.')->group(function () {
     });
 });
 
-Route::prefix('/categories')->name('categories.')->group(function () {
-    Route::get('/{category:name}', [BlogController::class, 'index'])->name('show');
-});
+// Route::get('/categories/api', [CategoryController::class, 'API_getAllCategories'])->name('categories.api');
 
 Route::prefix('/dashboard')->name('dashboard.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
+    // All routes dashboard/blogs
     Route::resource('/blogs', DashboardBlogController::class)->except(['show']);
-    // ->parameters([
-    //     'blogs' => 'blog:slug',
-    // ]);
+
+    Route::prefix('/categories')->name('categories.')->group(function () {
+        Route::post('/', [CategoryController::class, 'store'])->name('store');
+    });
 });

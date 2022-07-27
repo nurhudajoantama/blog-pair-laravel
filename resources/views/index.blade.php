@@ -6,7 +6,7 @@
 
 @if ($blogs->count())
 <div class="card mb-3">
-    <img src="https://source.unsplash.com/1200x400/?nature,water" class="card-img-top" alt="...">
+    {{-- <img src="https://source.unsplash.com/1200x400/?nature,water" class="card-img-top" alt="..."> --}}
     <div class="card-body text-center">
         <h3 class="card-title"><a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none text-dark">{{
                 $blogs[0]->title }}</a></h3>
@@ -15,7 +15,7 @@
         <p class="card-text"><small class="text-muted">{{ $blogs[0]->created_at->diffForHumans() }}</small></p>
         <div class="card-text">
             @foreach ($blogs[0]->categories as $category)
-            <span class="text-success "><b>{{ $category->name }}</b></span>
+            <span class="badge bg-dark px-2 py-1 text-white "><b>{{ $category->name }}</b></span>
             @endforeach
         </div>
         <a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none">Read more</a>
@@ -34,7 +34,8 @@
                     <small class="card-text pb-2">Dibuat oleh <strong>{{$blog->user->name}}</strong></small>
                     <div class="card-text">
                         @foreach ($blog->categories as $category)
-                        <span class="text-success"><b>{{ $category->name }}</b></span>
+                        <span class="badge bg-dark px-2 py-1 text-white"><b>{{ $category->name
+                                }}</b></span>
                         @endforeach
                     </div>
                     <p class="card-text mb-1">{{$blog->excerpt}}</p>

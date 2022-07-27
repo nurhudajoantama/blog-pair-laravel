@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Gate;
 
 class DashboardBlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::where('title', 'like', '%' . request('search') . '%')
+        $blogs = Blog::with(['user', 'categories'])->where('title', 'like', '%' . request('search') . '%')
             ->where('user_id', auth()->id())
             ->latest()
             ->paginate(10)
-            ->withQueryString();
+            // ->withQueryString();
+            ->appends($request->query());
         return view('dashboard.blogs.index', compact('blogs'));
     }
 
