@@ -22,8 +22,8 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th class="col-5">Title</th>
-            <th class="col-1">Categories</th>
+            <th class="col-3">Title</th>
+            <th class="col-3">Categories</th>
             <th class="col-3">Updated At</th>
             <th class="col-3">Action</th>
         </tr>
@@ -39,7 +39,7 @@
             <td>
                 @foreach ($blog->categories as $category)
                 {{--TODO: add link to category --}}
-                <span class="badge bg-dark rounded-pill px-2 py-1 text-white">{{ $category->name }}</span>
+                <span class="badge bg-primary text-white text-capitalize px-3 py-1">{{ $category->name }}</span>
                 @endforeach
             </td>
             <td>{{ $blog->updated_at->format('D M Y') }}</td>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,10 @@ class BlogController extends Controller
         $user = request('user');
         $category = request('category');
 
-        $query = Blog::with(['user', 'categories'])
-            ->where('title', 'like', '%' . $search . '%');
+        $query = Blog::with(['user', 'categories']);
+        if ($search) {
+            $query = $query->where('title', 'like', '%' . $search . '%');
+        }
         if ($user) {
             $query = $query->whereHas('user', function ($query) use ($user) {
                 $query->where('username', '=',  $user);
@@ -29,8 +33,10 @@ class BlogController extends Controller
         $blogs = $query->latest()
             ->paginate(9)
             ->appends($request->query());
+        $categories = Category::has('blogs')->get();
+        $users = User::has('blogs')->get();
 
-        return view('blogs.index', compact('blogs'));
+        return view('blogs.index', compact('blogs', 'categories', 'users'));
     }
 
     public function show(Blog $blog)

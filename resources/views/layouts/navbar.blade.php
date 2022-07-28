@@ -15,12 +15,12 @@
                     <a class="nav-link {{(request()->segment(1) == 'blogs') ? 'active' : ''}}"
                         href="{{route('blogs.index')}}">Blogs</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <button class="btn btn-link nav-link" type="button" data-bs-toggle="collapse"
                         data-bs-target="#categoryNavbar" aria-expanded="false" aria-controls="categoryNavbar">
                         Category
                     </button>
-                </li>
+                </li> --}}
             </ul>
             <ul class='navbar-nav ml-auto'>
                 @auth
@@ -54,27 +54,3 @@
         </div>
     </div>
 </nav>
-
-<div class="container">
-    <div class="accordion accordion-flush mt-3 mt-2" id="accordionFlushExample">
-        <div class="accordion-item">
-            <div id="categoryNavbar" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-                    <h5 class="mb-2">
-                        Category
-                    </h5>
-                    <div class="row">
-                        @foreach (App\Models\Category::all() as $category)
-                        <a class="col-md-3 mb-1 text-dark" href="{{route('blogs.index',[
-                            'category' => $category->name
-                        ])}}">
-                            {{ $category->name }}</a>
-                        @endforeach
-                    </div>
-                    <hr />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

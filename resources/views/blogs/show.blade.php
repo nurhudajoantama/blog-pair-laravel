@@ -4,19 +4,29 @@
 
 <h1>{{$blog->title}}</h1>
 <div>
-    Dibuat oleh <strong>{{$blog->user->name}}</strong>
+    Dibuat oleh
+    <a href="{{route('blogs.index',['user'=>$blog->user->username])}}">
+        <strong class="text-capitalize text-dark">
+            <u>{{$blog->user->name}}</u>
+        </strong>
+    </a>
 </div>
 <div>
     Dibuat pada <strong>{{$blog->created_at->format('d M Y')}}</strong>
 </div>
 <div>
     @foreach ($blog->categories as $category)
-    <span class="badge bg-secondary px-2 py-1 text-white">{{ $category->name }}</span>
+    <a href="{{route('blogs.index',['category' => $category->name])}}" class="text-decoration-none">
+        <span class="badge  bg-primary text-white text-capitalize px-3 py-1 ">
+            {{ $category->name }}
+        </span>
+    </a>
     @endforeach
 </div>
 <p class="mt-3">{!! $blog->body !!}</p>
 
 
+<a href="/blogs">Back to post</a>
 <div class="mt-5">
     <div>
         <h3 class="border-bottom mb-4" style="margin-top: 150px ">Comments</h3>
