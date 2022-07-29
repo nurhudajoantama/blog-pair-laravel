@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardBlogController;
@@ -38,8 +39,12 @@ Route::prefix('/blogs')->name('blogs.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/{blog:slug}', [BlogController::class, 'show'])->name('show');
 
-    Route::prefix('/{blog:slug}')->group(function () {
-        Route::post('/comments', [BlogController::class, 'storeComment'])->name('storeComment');
+    Route::prefix('/{blog:slug}')->middleware('auth')->name('comment.')->group(function () {
+        Route::post('/comments', [CommentController::class, 'store'])->name('store');
+        Route::post('/comments/reply', [CommentController::class, 'storeReply'])->name('reply.store');
+
+        Route::put('/{comment:id}', [CommentController::class, 'update'])->name('update');
+        Route::delete('/{comment:id}', [CommentController::class, 'destroy'])->name('destroy');
     });
 });
 

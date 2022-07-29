@@ -25,30 +25,55 @@
 </div>
 <p class="mt-3">{!! $blog->body !!}</p>
 
-
 <a href="/blogs">Back to post</a>
-<div class="mt-5">
+<div class="mt-5 mb-3">
     <div>
         <h3 class="border-bottom mb-4" style="margin-top: 150px ">Comments</h3>
-        @foreach ($blog->comments as $comment)
-        <div class="mb-4">
-            <div>
-                <strong>{{$comment->user->name}}</strong>
-                <small class="mb-2">
-                    {{$comment->created_at->diffForHumans()}}
-                </small>
+        <div>
+            @foreach ($comments as $comment)
+            <div class="mb-4">
+                <div>
+                    <strong>{{$comment->user->name}}</strong>
+                    <small class="mb-2">
+                        {{$comment->created_at->diffForHumans()}}
+                    </small>
+                    <small class="mb-2">
+                        <form action="{{ route('blogs.comment.destroy',compact('blog','comment')) }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </small>
+                </div>
+                <div>
+                    {{$comment->comment}}
+                </div>
+                @auth
+                <form class="mt-2 mb-3" action="{{route('blogs.comment.reply.store', $blog)}}" method="post">
+                    @csrf
+                    <input type="hidden" name="parent_id" value="{{ $comment->id }}" />
+                    <div class="row">
+                        <div class="col-11">
+                            <textarea class="form-control" name="comment" rows="1" placeholder="reply"></textarea>
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-primary">Reply</button>
+                        </div>
+                    </div>
+                </form>
+                @endauth
+                <div>
+                    @include('blogs.partials._comment_replies', ['comments' => $comment->replies])
+                </div>
             </div>
-            <div>
-                {{$comment->comment}}
-            </div>
+            @endforeach
         </div>
-        @endforeach
     </div>
 
     @auth
-    <form class="mt-2" action="{{route('blogs.storeComment', $blog)}}" method="post">
+    <form class="mt-2" action="{{route('blogs.comment.store', $blog)}}" method="post">
         @csrf
-        <textarea class="form-control" name="comment" rows="3"></textarea>
+        <textarea class="form-control" name="comment" rows="3" placeholder="Comment"></textarea>
         <button type="submit" class="btn btn-primary mt-1">Comment</button>
     </form>
     @else

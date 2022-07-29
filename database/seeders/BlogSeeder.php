@@ -17,7 +17,29 @@ class BlogSeeder extends Seeder
      */
     public function run()
     {
+        $users = [
+            [
+                'name' => 'Nurhuda',
+                'username' => 'nurhuda',
+                'email' => 'njoantama@gmail.com',
+                'password' => bcrypt('123456'),
+            ],
+            [
+                'name' => 'Raihan',
+                'username' => 'raihanputra',
+                'email' => 'raihanpd93@gmail.com',
+                'password' => bcrypt('1234567'),
+            ],
+            [
+                'name' => 'Admin',
+                'username' => 'admin',
+                'email' => 'admin@example.com',
+                'password' => bcrypt('admin'),
+            ]
+        ];
+
         User::factory()->count(1)->create();
+        User::insert($users);
         Category::factory()->count(3)->create();
         Blog::factory()->count(100)->create();
     }

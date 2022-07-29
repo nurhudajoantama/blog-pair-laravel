@@ -12,8 +12,10 @@ class Comment extends Model
     protected $fillable = [
         'user_id',
         'blog_id',
+        'parent_id',
         'comment'
     ];
+    protected $with = ['user'];
 
     public function user()
     {
@@ -23,5 +25,10 @@ class Comment extends Model
     public function blog()
     {
         return $this->belongsTo(Blog::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 }
