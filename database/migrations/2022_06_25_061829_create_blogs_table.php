@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->index();
             $table->string('slug')->unique();
+            $table->string('image')->nullable();
             $table->text('excerpt');
             $table->text('body');
             $table->foreignId('user_id')->references('id')->on('users');

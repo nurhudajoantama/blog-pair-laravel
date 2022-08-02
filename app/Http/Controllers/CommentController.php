@@ -33,7 +33,7 @@ class CommentController extends Controller
         if ($parent->parent_id) {
             $parent_username = $parent->user->username;
             $request->merge([
-                'comment' => 'Re: ' . $parent_username . ' '  . $request->comment,
+                'comment' => '<span class="text-primary">@' . $parent_username . '</span> '  . strip_tags($request->comment),
                 'parent_id' => $parent->parent_id
             ]);
         }
@@ -56,6 +56,7 @@ class CommentController extends Controller
 
     public function destroy(Blog $blog, Comment $comment)
     {
+        // USER HAVE POST CAN DELETED COMMENT
         // if ($blog->id != $comment->blog_id) {
         //     abort(403);
         // }

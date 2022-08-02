@@ -6,6 +6,11 @@
 
 @if ($blogs->count())
 <div class="card mb-3">
+    @if ($blogs[0]->image)
+    <div style="height: 350px; overflow: hidden">
+        <img src="{{ asset('storage/' . $blogs[0]->image) }}" alt="{{ $blogs[0]->title }}" class="img-fluid">
+    </div>
+    @endif
     {{-- <img src="https://source.unsplash.com/1200x400/?nature,water" class="card-img-top" alt="..."> --}}
     <div class="card-body text-center">
         <h3 class="card-title"><a href="{{route('blogs.show', $blogs[0])}}" class="text-decoration-none text-dark">{{

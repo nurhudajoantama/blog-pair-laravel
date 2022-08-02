@@ -4,7 +4,7 @@
 
 <h1 class="mt-3 mb-5">Create Blog</h1>
 
-<form action="{{route('dashboard.blogs.store')}}" method="POST">
+<form action="{{route('dashboard.blogs.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         @error('slug')
@@ -28,6 +28,15 @@
             <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
         </select>
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+        @error('image')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label for="body">Body</label>

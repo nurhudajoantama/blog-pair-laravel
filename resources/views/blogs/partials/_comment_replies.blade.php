@@ -7,15 +7,18 @@
                 {{$comment->created_at->diffForHumans()}}
             </small>
             <small class="mb-2">
-                <form action="{{ route('blogs.comment.destroy',compact('blog','comment')) }}" method="post">
+                @if(auth()->id() == $comment->user_id)
+                <form class="d-inline" action="{{ route('blogs.comment.destroy',compact('blog','comment')) }}"
+                    method="post">
                     @method('DELETE')
                     @csrf
-                    <button class="btn btn-danger btn-sm">Delete</button>
+                    <button class="btn btn-outline-danger btn-sm">Delete</button>
                 </form>
+                @endif
             </small>
         </div>
         <div>
-            {{$comment->comment}}
+            {!! $comment->comment !!}
         </div>
         @auth
         <form class="mt-2 mb-3" action="{{route('blogs.comment.reply.store', $blog)}}" method="post">

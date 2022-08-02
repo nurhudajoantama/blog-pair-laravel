@@ -31,17 +31,20 @@ class DashboardBlogController extends Controller
     public function store(Request $request)
     {
         $request->merge(['slug' => Str::slug($request->title)]);
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|min:3',
             'slug' => 'required|min:3|unique:blogs',
             'body' => 'required|min:3',
             'category_id' => 'exists:categories,id',
+            'image' => 'image'
         ]);
-        $request->merge([
-            'excerpt' => Str::limit(strip_tags($request->body, 35)),
-            'user_id' => auth()->id()
-        ]);
-        $blog = Blog::create($request->all());
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('blog-images');
+        }
+        $validatedData['excerpt'] = Str::limit($request->body, 100);
+        $validatedData['user_id'] = auth()->id();
+
+        $blog = Blog::create($validatedData);
         $blog->categories()->attach($request->category_id);
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog created successfully');
     }

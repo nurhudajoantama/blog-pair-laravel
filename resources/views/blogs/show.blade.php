@@ -23,6 +23,12 @@
     </a>
     @endforeach
 </div>
+@if ($blog->image)
+<div style="height: 350px;">
+    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid">
+</div>
+@endif
+
 <p class="mt-3">{!! $blog->body !!}</p>
 
 <a href="/blogs">Back to post</a>
@@ -38,11 +44,14 @@
                         {{$comment->created_at->diffForHumans()}}
                     </small>
                     <small class="mb-2">
-                        <form action="{{ route('blogs.comment.destroy',compact('blog','comment')) }}" method="post">
+                        @if(auth()->id() == $comment->user_id)
+                        <form class="d-inline" action="{{ route('blogs.comment.destroy',compact('blog','comment')) }}"
+                            method="post">
                             @method('DELETE')
                             @csrf
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <button class="btn btn-outline-danger btn-sm">Delete</button>
                         </form>
+                        @endif
                     </small>
                 </div>
                 <div>
