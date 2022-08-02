@@ -4,7 +4,7 @@
 
 <h1>Edit Blog</h1>
 
-<form action="{{route('dashboard.blogs.update', $blog)}}" method="POST">
+<form action="{{route('dashboard.blogs.update', $blog)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -33,6 +33,22 @@
             @endforeach
         </select>
     </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+
+        @if($blog->image)
+        <img src="{{ asset('storage/' . $blog->image) }}" class="img-preview img-fluid mb-4 col-sm-2 d-block">
+        @else
+        <img class="img-preview img-fluid mb-4 col-sm-2">
+        @endif
+        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image"
+            onchange="previewImage()">
+        @error('image')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
     <div class="form-group">
         <label for="body">Body</label>
         <input type="hidden" class="form-control @error('title') is-invalid @enderror" id="body" name="body"
@@ -54,6 +70,21 @@
 <script>
     const csrf_token = "{{csrf_token()}}";
     const categories_store_url = "{{route('dashboard.categories.store')}}";
+
+    function previewImage(){
+
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+
+        oFReader.onload = function(oFREvent) {
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
 </script>
 <script src="{{URL::asset('/js/select2-conf.js')}}" defer></script>
 @endsection

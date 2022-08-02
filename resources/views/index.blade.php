@@ -22,7 +22,7 @@
                 </strong>
             </a>
         </small>
-        <p class="card-text">{!! $blogs[0]->excerpt !!}</p>
+        <p class="card-text">{{ $blogs[0]->excerpt }}</p>
         <p class="card-text"><small class="text-muted">{{ $blogs[0]->created_at->diffForHumans() }}</small></p>
         <div class="card-text">
             @foreach ($blogs[0]->categories as $category)
@@ -44,6 +44,11 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
+                    @if ($blog->image)
+                    <div>
+                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid">
+                    </div>
+                    @endif
                     <h5 class="card-title">{{$blog->title}}</h5>
                     <small class="card-text pb-2">Dibuat oleh
                         <a href="{{route('blogs.index',['user'=>$blog->user->username])}}">

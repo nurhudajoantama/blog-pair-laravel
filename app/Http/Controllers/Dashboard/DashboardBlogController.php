@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardBlogController extends Controller
 {
@@ -41,7 +42,7 @@ class DashboardBlogController extends Controller
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('blog-images');
         }
-        $validatedData['excerpt'] = Str::limit($request->body, 100);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
         $validatedData['user_id'] = auth()->id();
 
         $blog = Blog::create($validatedData);
@@ -62,20 +63,30 @@ class DashboardBlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $request->merge(['slug' => Str::slug($request->title)]);
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|min:3',
             'slug' => 'required|min:3|unique:blogs,slug,' . $blog->id,
             'body' => 'required|min:3',
             'category_id' => 'exists:categories,id',
+            'image' => 'image'
         ]);
-        $request->merge(['excerpt' => Str::limit(strip_tags($request->body, 35))]);
-        $blog->update($request->all());
+        if ($request->file('image')) {
+            if ($blog->image) {
+                Storage::delete($blog->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('blog-images');
+        }
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+        $blog->update($validatedData);
         $blog->categories()->sync($request->category_id);
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog updated successfully');
     }
 
     public function destroy(Blog $blog)
     {
+        if ($blog->image) {
+            Storage::delete($blog->image);
+        }
         $blog->delete();
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog deleted successfully');
     }

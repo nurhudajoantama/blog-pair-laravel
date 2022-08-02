@@ -24,7 +24,7 @@
     @endforeach
 </div>
 @if ($blog->image)
-<div style="height: 350px;">
+<div style="width: 300px">
     <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid">
 </div>
 @endif

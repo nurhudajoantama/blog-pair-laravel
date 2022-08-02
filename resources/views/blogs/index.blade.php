@@ -97,6 +97,12 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
+                    @if ($blog->image)
+                    <div>
+                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
+                            class="img-fluid card-img-top">
+                    </div>
+                    @endif
                     <h5 class="card-title">{{$blog->title}}</h5>
                     <small class="card-text fs-6">Dibuat oleh
                         <a class="text-dark" href="{{route('blogs.index',['user'=>$blog->user->username])}}">
