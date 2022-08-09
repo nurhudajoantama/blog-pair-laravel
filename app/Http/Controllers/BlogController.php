@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Category;
+use App\Models\TAg;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,9 +14,9 @@ class BlogController extends Controller
     {
         $search = request('search');
         $user = request('user');
-        $category = request('category');
+        $tag = request('tag');
 
-        $query = Blog::with(['user', 'categories']);
+        $query = Blog::with(['user', 'tags']);
         if ($search) {
             $query = $query->where('title', 'like', '%' . $search . '%');
         }
@@ -25,23 +25,23 @@ class BlogController extends Controller
                 $query->where('username', '=',  $user);
             });
         }
-        if ($category) {
-            $query = $query->whereHas('categories', function ($query) use ($category) {
-                $query->where('name', '=',  $category);
+        if ($tag) {
+            $query = $query->whereHas('tags', function ($query) use ($tag) {
+                $query->where('name', '=',  $tag);
             });
         }
         $blogs = $query->latest()
             ->paginate(9)
             ->appends($request->query());
-        $categories = Category::has('blogs')->get();
+        $tags = Tag::has('blogs')->get();
         $users = User::has('blogs')->get();
 
-        return view('blogs.index', compact('blogs', 'categories', 'users'));
+        return view('blogs.index', compact('blogs', 'tags', 'users'));
     }
 
     public function show(Blog $blog)
     {
-        $blog->load(['user', 'categories',]);
+        $blog->load(['user', 'tags',]);
         $comments = $blog->comments()->whereNull('parent_id')
             ->with(['replies'])
             ->get();

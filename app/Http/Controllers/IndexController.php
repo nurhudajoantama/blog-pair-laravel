@@ -10,7 +10,7 @@ class IndexController extends Controller
     public function index()
     {
         // $latestBlog = Blog::latest()->first();
-        $blogs = Blog::with(['user', 'categories'])->latest()->take(4)->get();
+        $blogs = Blog::with(['user', 'tags'])->latest()->take(4)->get();
         return view('index', compact('blogs'));
     }
 }

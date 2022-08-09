@@ -34,22 +34,8 @@ class Blog extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function categories()
+    public function tags()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Tag::class);
     }
 }
-
-// protected $fillable = ['title', 'excerpt', 'body', 'user_id'];
-
-
-
-//     public function sluggable(): array
-//     {
-//         return [
-//             'slug' => [
-//                 'source' => 'title'
-//             ]
-//         ];
-//     }
-// }

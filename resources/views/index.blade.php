@@ -7,7 +7,7 @@
 @if ($blogs->count())
 <div class="card mb-3">
     @if ($blogs[0]->image)
-    <div style="height: 350px; overflow: hidden">
+    <div style="height: 500px;width: auto; overflow: hidden">
         <img src="{{ asset('storage/' . $blogs[0]->image) }}" alt="{{ $blogs[0]->title }}" class="img-fluid">
     </div>
     @endif
@@ -25,10 +25,10 @@
         <p class="card-text">{{ $blogs[0]->excerpt }}</p>
         <p class="card-text"><small class="text-muted">{{ $blogs[0]->created_at->diffForHumans() }}</small></p>
         <div class="card-text">
-            @foreach ($blogs[0]->categories as $category)
-            <a href="{{route('blogs.index',['category' => $category->name])}}">
+            @foreach ($blogs[0]->tags as $tag)
+            <a href="{{route('blogs.index',['tag' => $tag->name])}}">
                 <span class="badge  bg-primary text-white text-capitalize px-3 py-1">{{
-                    $category->name
+                    $tag->name
                     }}</span></a>
             @endforeach
         </div>
@@ -58,10 +58,10 @@
                     </small>
                     </a>
                     <div class="card-text">
-                        @foreach ($blog->categories as $category)
-                        <a class="col-md-3 mb-1" href="{{route('blogs.index',['category' => $category->name])}}">
+                        @foreach ($blog->tags as $tag)
+                        <a class="col-md-3 mb-1" href="{{route('blogs.index',['tag' => $tag->name])}}">
                             <span class="badge  bg-primary text-white text-capitalize px-3 py-1">
-                                {{ $category->name }}
+                                {{ $tag->name }}
                             </span>
                         </a>
                         @endforeach

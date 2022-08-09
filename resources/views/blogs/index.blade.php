@@ -24,8 +24,8 @@
             </li>
             <li class="nav-item">
                 <button class="btn btn-link nav-link py-1 text-secondary" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#categoryNavbar" aria-expanded="false" aria-controls="categoryNavbar">
-                    Categories
+                    data-bs-target="#tagNavbar" aria-expanded="false" aria-controls="tagNavbar">
+                    Tags
                 </button>
             </li>
         </ul>
@@ -52,18 +52,18 @@
             </div>
         </div>
         <div class="accordion-item">
-            <div id="categoryNavbar" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+            <div id="tagNavbar" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     <h5 class="mb-2">
-                        Categories
+                        Tags
                     </h5>
                     <div class="row">
-                        @foreach ($categories as $category)
+                        @foreach ($tags as $tag)
                         <a class="col-md-3 mb-1 text-dark text-decoration-none"
-                            href="{{route('blogs.index',['category' => $category->name])}}">
+                            href="{{route('blogs.index',['tag' => $tag->name])}}">
                             <span class="badge bg-primary text-white text-capitalize px-3 py-1 ">
-                                {{ $category->name }}
+                                {{ $tag->name }}
                             </span>
                         </a>
                         @endforeach
@@ -81,15 +81,15 @@
     </div>
     @endif
 
-    @if(request('category'))
+    {{-- @if(request('tag'))
     <div>
-        <p>Category :
+        <p>tag :
             <span class="badge bg-primary text-white text-capitalize px-3 py-1 ">
-                {{request('category')}}
+                {{request('tag')}}
             </span>
         </p>
     </div>
-    @endif
+    @endif --}}
 
     @if ($blogs->count())
     <div class="row mt-4">
@@ -112,12 +112,11 @@
                         </a>
                     </small>
                     <div>
-                        @foreach ($blog->categories as $category)
+                        @foreach ($blog->tags as $tag)
                         <span class="text-success ">
-                            <a class="text-decoration-none"
-                                href="{{route('blogs.index',['category'=>$category->name])}}">
+                            <a class="text-decoration-none" href="{{route('blogs.index',['tag'=>$tag->name])}}">
                                 <span class="badge  bg-primary text-white text-capitalize px-3 py-1">
-                                    {{ $category->name }}
+                                    {{ $tag->name }}
                                 </span>
                             </a>
                         </span>

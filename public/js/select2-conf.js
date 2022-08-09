@@ -1,10 +1,10 @@
 /**
- * For select2 configuration for category
+ * For select2 configuration for tag
  * some variable need declare on top of this script
  */
 
 $(document).ready(function () {
-    $("#category")
+    $("#tag")
         .select2({
             tags: true,
             tokenSeparators: [",", " "],
@@ -16,7 +16,7 @@ $(document).ready(function () {
                 }
                 return {
                     id: term,
-                    text: "Create category : <strong>" + term + "</strong>",
+                    text: "Create tag : <strong>" + term + "</strong>",
                     newTag: true, // add additional parameters
                 };
             },
@@ -31,14 +31,14 @@ $(document).ready(function () {
         .on("select2:select", function (e) {
             // if the tag is new, create new one and append to the option
             if (e.params.data.newTag) {
-                // fetch to create category
-                fetch(categories_store_url, {
+                // fetch to create tag
+                fetch("/dashboard/tags", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        category_name: e.params.data.id,
+                        tag_name: e.params.data.id,
                         _token: csrf_token,
                     }),
                 })

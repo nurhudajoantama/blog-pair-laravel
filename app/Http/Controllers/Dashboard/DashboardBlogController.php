@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Blog;
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ class DashboardBlogController extends Controller
 {
     public function index(Request $request)
     {
-        $blogs = Blog::with(['user', 'categories'])->where('title', 'like', '%' . request('search') . '%')
+        $blogs = Blog::with(['user', 'tags'])->where('title', 'like', '%' . request('search') . '%')
             ->where('user_id', auth()->id())
             ->latest()
             ->paginate(10)
@@ -25,8 +25,8 @@ class DashboardBlogController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        return view('dashboard.blogs.create', compact('categories'));
+        $tags = Tag::all();
+        return view('dashboard.blogs.create', compact('tags'));
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class DashboardBlogController extends Controller
             'title' => 'required|min:3',
             'slug' => 'required|min:3|unique:blogs',
             'body' => 'required|min:3',
-            'category_id' => 'exists:categories,id',
+            'tag_id' => 'exists:tags,id',
             'image' => 'image'
         ]);
         if ($request->file('image')) {
@@ -46,7 +46,7 @@ class DashboardBlogController extends Controller
         $validatedData['user_id'] = auth()->id();
 
         $blog = Blog::create($validatedData);
-        $blog->categories()->attach($request->category_id);
+        $blog->tags()->attach($request->tag_id);
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog created successfully');
     }
 
@@ -55,9 +55,9 @@ class DashboardBlogController extends Controller
         if (!Gate::allows('update-blog', $blog)) {
             abort(403);
         }
-        $categories = Category::all();
-        $blog->load('categories');
-        return view('dashboard.blogs.edit', compact('blog', 'categories'));
+        $tags = Tag::all();
+        $blog->load('tags');
+        return view('dashboard.blogs.edit', compact('blog', 'tags'));
     }
 
     public function update(Request $request, Blog $blog)
@@ -67,7 +67,7 @@ class DashboardBlogController extends Controller
             'title' => 'required|min:3',
             'slug' => 'required|min:3|unique:blogs,slug,' . $blog->id,
             'body' => 'required|min:3',
-            'category_id' => 'exists:categories,id',
+            'tag_id' => 'exists:tags,id',
             'image' => 'image'
         ]);
         if ($request->file('image')) {
@@ -78,7 +78,7 @@ class DashboardBlogController extends Controller
         }
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
         $blog->update($validatedData);
-        $blog->categories()->sync($request->category_id);
+        $blog->tags()->sync($request->tag_id);
         return redirect()->route('dashboard.blogs.index')->with('success', 'Blog updated successfully');
     }
 

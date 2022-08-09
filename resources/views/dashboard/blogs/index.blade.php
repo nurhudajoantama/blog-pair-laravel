@@ -23,7 +23,7 @@
     <thead>
         <tr>
             <th class="col-3">Title</th>
-            <th class="col-3">Categories</th>
+            <th class="col-3">Tags</th>
             <th class="col-3">Updated At</th>
             <th class="col-3">Action</th>
         </tr>
@@ -37,9 +37,9 @@
                 </a>
             </td>
             <td>
-                @foreach ($blog->categories as $category)
-                {{--TODO: add link to category --}}
-                <span class="badge bg-primary text-white text-capitalize px-3 py-1">{{ $category->name }}</span>
+                @foreach ($blog->tags as $tag)
+                {{--TODO: add link to tag --}}
+                <span class="badge bg-primary text-white text-capitalize px-3 py-1">{{ $tag->name }}</span>
                 @endforeach
             </td>
             <td>{{ $blog->updated_at->format('D M Y') }}</td>

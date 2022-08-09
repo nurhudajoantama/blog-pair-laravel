@@ -15,10 +15,10 @@
     Dibuat pada <strong>{{$blog->created_at->format('d M Y')}}</strong>
 </div>
 <div>
-    @foreach ($blog->categories as $category)
-    <a href="{{route('blogs.index',['category' => $category->name])}}" class="text-decoration-none">
+    @foreach ($blog->tags as $tag)
+    <a href="{{route('blogs.index',['tag' => $tag->name])}}" class="text-decoration-none">
         <span class="badge  bg-primary text-white text-capitalize px-3 py-1 ">
-            {{ $category->name }}
+            {{ $tag->name }}
         </span>
     </a>
     @endforeach

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Blog;
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -40,7 +40,7 @@ class BlogSeeder extends Seeder
 
         User::factory()->count(1)->create();
         User::insert($users);
-        Category::factory()->count(3)->create();
+        Tag::factory()->count(3)->create();
         Blog::factory()->count(100)->create();
     }
 }

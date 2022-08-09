@@ -22,14 +22,14 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" class="form-control" name="category_id[]" multiple="multiple">
-            {{-- VALUE AS ID IN CATEGORY --}}
-            @foreach ($categories as $category)
-            <option value="{{$category->id}}" @if ($blog->categories->contains($category))
+        <label for="tag">tag</label>
+        <select id="tag" class="form-control" name="tag_id[]" multiple="multiple">
+            {{-- VALUE AS ID IN tag --}}
+            @foreach ($tags as $tag)
+            <option value="{{$tag->id}}" @if ($blog->tags->contains($tag))
                 selected
                 @endif
-                >{{$category->name}}</option>
+                >{{$tag->name}}</option>
             @endforeach
         </select>
     </div>
@@ -69,7 +69,7 @@
 @section('script')
 <script>
     const csrf_token = "{{csrf_token()}}";
-    const categories_store_url = "{{route('dashboard.categories.store')}}";
+    const tags_store_url = "{{route('dashboard.tags.store')}}";
 
     function previewImage(){
 

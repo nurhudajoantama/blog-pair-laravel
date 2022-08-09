@@ -15,12 +15,7 @@
                     <a class="nav-link {{(request()->segment(1) == 'blogs') ? 'active' : ''}}"
                         href="{{route('blogs.index')}}">Blogs</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <button class="btn btn-link nav-link" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#categoryNavbar" aria-expanded="false" aria-controls="categoryNavbar">
-                        Category
-                    </button>
-                </li> --}}
+
             </ul>
             <ul class='navbar-nav ml-auto'>
                 @auth
