@@ -22,29 +22,22 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th class="col-3">Title</th>
-            <th class="col-3">Tags</th>
+            <th class="col-3">Category</th>
             <th class="col-3">Updated At</th>
             <th class="col-3">Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($blogs as $blog)
+        @foreach ($categories as $category)
         <tr>
             <td>
-                <a href="{{ route('blogs.show', $blog) }}">
-                    {{ $blog->title }}
-                </a>
+
+                {{ $category->name }}
+
             </td>
+            <td>{{ $category->updated_at->format('D M Y') }}</td>
             <td>
-                @foreach ($blog->tags as $tag)
-                {{--TODO: add link to tag --}}
-                <span class="badge bg-primary text-white text-capitalize px-3 py-1">{{ $tag->name }}</span>
-                @endforeach
-            </td>
-            <td>{{ $blog->updated_at->format('D M Y') }}</td>
-            <td>
-                <div class="d-flex">
+                {{-- <div class="d-flex">
                     <a href="{{route('dashboard.blogs.edit', compact('blog'))}}"
                         class="btn btn-primary btn-sm mr-2">Edit</a>
                     <!-- Button trigger modal -->
@@ -68,7 +61,8 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
                                     {{-- <button type="button" class="btn btn-danger">Yes</button> --}}
-                                    <form action="{{route('dashboard.blogs.destroy', compact('blog'))}}" method="POST">
+                                    {{-- <form action="{{route('dashboard.blogs.destroy', compact('blog'))}}"
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -78,16 +72,16 @@
                         </div>
                     </div>
 
-                </div>
+                </div> --}}
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
 
-<div class="mt-3">
+{{-- <div class="mt-3">
     {{ $blogs->links() }}
-</div>
+</div> --}}
 </body>
 
 @endsection

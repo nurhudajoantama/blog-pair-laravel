@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardBlogController;
+use App\Http\Controllers\Dashboard\DashboardCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::prefix('/dashboard')->name('dashboard.')->middleware('auth')->group(funct
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     // All routes dashboard/blogs
     Route::resource('/blogs', DashboardBlogController::class)->except(['show']);
+
+    Route::resource('/categories', DashboardCategoryController::class)->except(['show']);
 
     Route::prefix('/tags')->name('tags.')->group(function () {
         Route::post('/', [TagController::class, 'store'])->name('store');
