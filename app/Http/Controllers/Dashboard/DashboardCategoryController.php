@@ -10,8 +10,7 @@ class DashboardCategoryController extends Controller
 {
     public function index()
     {
-        // $categories = Category::with(['subcategory'])->where('parent_id', null)->get();
-        $categories = Category::all();
+        $categories = Category::with(['subcategory'])->whereNull('parent_id')->get();
         return view('dashboard.categories.index', compact('categories'));
     }
 
@@ -28,5 +27,10 @@ class DashboardCategoryController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Category has been created successfully.');
+    }
+    public function create()
+    {
+        $parent_categories = Category::whereNull('parent_id')->get();
+        return view('dashboard.categories.create', compact('parent_categories'));
     }
 }

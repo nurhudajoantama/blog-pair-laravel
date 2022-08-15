@@ -15,6 +15,13 @@
                     Blogs
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{(request()->segment(2) == 'categories') ? 'active' : ''}}"
+                    href="{{route('dashboard.categories.index')}}">
+                    <span data-feather="file" class="align-text-bottom"></span>
+                    Categories
+                </a>
+            </li>
         </ul>
 
         {{-- <h6

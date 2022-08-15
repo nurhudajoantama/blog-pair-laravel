@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Blog;
 use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,8 @@ class DashboardBlogController extends Controller
     public function create()
     {
         $tags = Tag::all();
-        return view('dashboard.blogs.create', compact('tags'));
+        $categories = Category::with(['subcategory'])->whereNull('parent_id')->get();
+        return view('dashboard.blogs.create', compact('tags','categories'));
     }
 
     public function store(Request $request)

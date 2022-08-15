@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="mb-5 mt-3">Blog Post</h1>
+<h1 class="mb-5 mt-3">Category</h1>
 
 @if(session()->has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -11,7 +11,7 @@
 @endif
 
 <div class="d-flex justify-content-end mb-3">
-    <a href="{{route('dashboard.blogs.create')}}" class="btn btn-success">Create</a>
+    <a href="{{route('dashboard.categories.create')}}" class="btn btn-success">Create</a>
 </div>
 <form action="" method="get">
     <div class="input-group mb-3">
@@ -29,52 +29,60 @@
     </thead>
     <tbody>
         @foreach ($categories as $category)
-        <tr>
-            <td>
-
-                {{ $category->name }}
-
-            </td>
-            <td>{{ $category->updated_at->format('D M Y') }}</td>
-            <td>
-                {{-- <div class="d-flex">
-                    <a href="{{route('dashboard.blogs.edit', compact('blog'))}}"
-                        class="btn btn-primary btn-sm mr-2">Edit</a>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#deleteModal{{$blog->id}}">
-                        Delete
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteModal{{$blog->id}}" tabindex="-1"
-                        aria-labelledby="deleteModal{{$blog->id}}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalTitle{{$blog->id}}">Delete Post</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close">X</button>
-                                </div>
-                                <div class="modal-body">
-                                    Are You Sure want to delete post with title <strong>{{ $blog->title }}</strong>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                                    {{-- <button type="button" class="btn btn-danger">Yes</button> --}}
-                                    {{-- <form action="{{route('dashboard.blogs.destroy', compact('blog'))}}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+            <tr>
+                <td>
+                    {{ $category->name }}
+                </td>
+                <td>{{ $category->updated_at->format('D M Y') }}</td>
+                <td>
+                    {{-- <div class="d-flex">
+                        <a href="{{route('dashboard.blogs.edit', compact('blog'))}}"
+                            class="btn btn-primary btn-sm mr-2">Edit</a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{$blog->id}}">
+                            Delete
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal{{$blog->id}}" tabindex="-1"
+                            aria-labelledby="deleteModal{{$blog->id}}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalTitle{{$blog->id}}">Delete Post</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close">X</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are You Sure want to delete post with title <strong>{{ $blog->title }}</strong>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                                        {{-- <button type="button" class="btn btn-danger">Yes</button> --}}
+                                        {{-- <form action="{{route('dashboard.blogs.destroy', compact('blog'))}}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div> --}}
-            </td>
-        </tr>
+                    </div> --}}
+                </td>
+            </tr>
+            @foreach($category->subcategory as $subcategory)
+            <tr>
+                <td class="pl-4">
+                    {{ $subcategory->name }}
+                </td>
+                <td>{{ $subcategory->updated_at->format('D M Y') }}</td>
+                <td>
+                </td>
+            </tr>
+            @endforeach
         @endforeach
     </tbody>
 </table>

@@ -20,6 +20,19 @@
         </div>
         @enderror
     </div>
+    
+    <div class="form-group">
+        <label for="name">Category</label>
+        <select class="form-select" style="width: 100%;" name="category_id">
+            <option value="">None</option>
+            @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>
+                @foreach($category->subcategory as $subcategory)
+                <option  value="{{$subcategory->id}}">&nbsp;&nbsp;&nbsp;{{$subcategory->name}}</option>
+                @endforeach
+            @endforeach
+        </select>
+    </div>
     <div class="form-group">
         <label for="tag">tag</label>
         <select id="tag" class="form-control" name="tag_id[]" multiple="multiple">
